@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="PicPaySimplificado.API/PicPaySimplificado.API.csproj" />
+  <Project Path="PicPaySimplificado.Application/PicPaySimplificado.Application.csproj" />
+  <Project Path="PicPaySimplificado.Domain/PicPaySimplificado.Domain.csproj" />
+  <Project Path="PicPaySimplificado.Infrastructure/PicPaySimplificado.Infrastructure.csproj" />
+  <Project Path="PicPaySimplificado.Shared/PicPaySimplificado.Shared.csproj" />
+</Solution>
