@@ -1,6 +1,12 @@
 @PicPaySimplificado.API_HostAddress = http://localhost:5001
 
-GET {{PicPaySimplificado.API_HostAddress}}/weatherforecast/
-Accept: application/json
+POST {{PicPaySimplificado.API_HostAddress}}/api/transfer/
+Content-Type: application/json
+
+{
+    "senderId": "a01b96d6-43df-4896-b014-6c16eda10ae9",
+    "receiverId": "52cd8b6a-cf0a-4e5f-a848-cf9fb175e836",
+    "amount": 100
+}
 
 ###

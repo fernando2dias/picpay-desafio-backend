@@ -1,4 +1,5 @@
 using PicPaySimplificado.Application.Interfaces;
+using PicPaySimplificado.Domain.Entities;
 using PicPaySimplificado.Domain.Repositories;
 
 namespace PicPaySimplificado.Application.UseCases.Transfer
@@ -44,12 +45,16 @@ namespace PicPaySimplificado.Application.UseCases.Transfer
                 
 
             var authorized = await _authorizationService.Authorize();
-            // Lógica de transferência
-            // 1. Validar os dados do comando
-            // 3. Verificar se o remetente tem saldo suficiente
-            // 4. Realizar a transferência (debitar do remetente e creditar no destinatário)
-            //
 
+            if (!authorized)
+                throw new Exception("Transferência não autorizada");
+
+            var transaction = new Transaction(sender.Id, receiver.Id, command.Amount);
+
+            await _transactionRepository.Save(transaction);
+
+            await _notificationService.Notify(receiver);
+            
         }
     }
 }

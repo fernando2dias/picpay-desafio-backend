@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PicPaySimplificado.Application\PicPaySimplificado.Application.csproj" />
+    <ProjectReference Include="..\PicPaySimplificado.Infrastructure\PicPaySimplificado.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

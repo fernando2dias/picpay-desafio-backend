@@ -1,7 +1,5 @@
 using PicPaySimplificado.Domain.Enums;
 using PicPaySimplificado.Domain.Exceptions;
-using System.Net.Http.Headers;
-using System.Security.Cryptography.X509Certificates;
 
 namespace PicPaySimplificado.Domain.Entities
 {
