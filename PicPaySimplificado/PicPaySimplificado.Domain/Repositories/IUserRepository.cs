@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using PicPaySimplificado.Domain.Entities;
 
 namespace PicPaySimplificado.Domain.Repositories
 {
-    internal interface IUserRepository
+    public interface IUserRepository
     {
+        Task<User> GetByIdAsync(Guid senderId);
     }
 }
