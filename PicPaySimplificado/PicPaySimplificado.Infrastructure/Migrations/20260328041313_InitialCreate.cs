@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace PicPaySimplificado.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class FirstMigration : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -18,8 +20,8 @@ namespace PicPaySimplificado.Infrastructure.Migrations
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     SenderId = table.Column<Guid>(type: "TEXT", nullable: false),
                     ReceiverId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Amount = table.Column<decimal>(type: "TEXT", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP")
                 },
                 constraints: table =>
                 {
@@ -47,7 +49,7 @@ namespace PicPaySimplificado.Infrastructure.Migrations
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     UserId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Balance = table.Column<decimal>(type: "TEXT", nullable: false)
+                    Balance = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -58,6 +60,24 @@ namespace PicPaySimplificado.Infrastructure.Migrations
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "Id", "Document", "Email", "FullName", "Type" },
+                values: new object[,]
+                {
+                    { new Guid("b4571002-0a3e-4174-9d7f-4fee06e74886"), "12345678900", "joao.silva@gmail.com", "João Silva", 1 },
+                    { new Guid("cc969c84-7e02-4410-9375-42f1585aef18"), "12300564544", "francisco.chico@gmail.com", "Francisco Chicote", 2 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Wallets",
+                columns: new[] { "Id", "Balance", "UserId" },
+                values: new object[,]
+                {
+                    { new Guid("7a8183bc-0834-425d-92ab-b5ddfb381445"), 10m, new Guid("cc969c84-7e02-4410-9375-42f1585aef18") },
+                    { new Guid("c8f0a7c0-3c7a-4fcb-bc17-1c1a8b5b0c11"), 100m, new Guid("b4571002-0a3e-4174-9d7f-4fee06e74886") }
                 });
 
             migrationBuilder.CreateIndex(

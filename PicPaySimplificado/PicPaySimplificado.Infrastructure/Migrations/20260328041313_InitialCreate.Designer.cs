@@ -11,8 +11,8 @@ using PicPaySimplificado.Infrastructure.Persistence;
 namespace PicPaySimplificado.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260328030941_FirstMigration")]
-    partial class FirstMigration
+    [Migration("20260328041313_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,10 +27,12 @@ namespace PicPaySimplificado.Infrastructure.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<decimal>("Amount")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("TEXT");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<Guid>("ReceiverId")
                         .HasColumnType("TEXT");
@@ -67,6 +69,24 @@ namespace PicPaySimplificado.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("b4571002-0a3e-4174-9d7f-4fee06e74886"),
+                            Document = "12345678900",
+                            Email = "joao.silva@gmail.com",
+                            FullName = "João Silva",
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = new Guid("cc969c84-7e02-4410-9375-42f1585aef18"),
+                            Document = "12300564544",
+                            Email = "francisco.chico@gmail.com",
+                            FullName = "Francisco Chicote",
+                            Type = 2
+                        });
                 });
 
             modelBuilder.Entity("PicPaySimplificado.Domain.Entities.Wallet", b =>
@@ -76,7 +96,7 @@ namespace PicPaySimplificado.Infrastructure.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<decimal>("Balance")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("TEXT");
@@ -87,6 +107,20 @@ namespace PicPaySimplificado.Infrastructure.Migrations
                         .IsUnique();
 
                     b.ToTable("Wallets");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("c8f0a7c0-3c7a-4fcb-bc17-1c1a8b5b0c11"),
+                            Balance = 100m,
+                            UserId = new Guid("b4571002-0a3e-4174-9d7f-4fee06e74886")
+                        },
+                        new
+                        {
+                            Id = new Guid("7a8183bc-0834-425d-92ab-b5ddfb381445"),
+                            Balance = 10m,
+                            UserId = new Guid("cc969c84-7e02-4410-9375-42f1585aef18")
+                        });
                 });
 
             modelBuilder.Entity("PicPaySimplificado.Domain.Entities.Wallet", b =>
